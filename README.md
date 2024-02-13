@@ -1,7 +1,7 @@
 # Student Portal - Spring Boot Application
 
 ## Description
-Spring boot application 
+Spring boot application using JPA and Flyway migration
 
 
 ## Project setup

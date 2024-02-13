@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: Student Portal
+
+
+#JPA
+  jpa:
+    show-sql: true
+
+#Spring Datasource Connection Pooling configuration
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:8889/student_portal?useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    tomcat:
+      validation-query: SELECT 1
+      max-active: 5
+      max-idle: 3
+      max-wait: 8000
+
+#Flyway
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    url: jdbc:mysql://localhost:8889?useSSL=false
+    schemas: student_portal
+    user: root
+    password: root
