@@ -10,7 +10,7 @@ spring:
 #Spring Datasource Connection Pooling configuration
   datasource:
     username: root
-    password: root
+    password: root # Remove it, if you are using XAMPP (Windows)
     url: jdbc:mysql://localhost:8889/student_portal?useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
     tomcat:
@@ -26,4 +26,4 @@ spring:
     url: jdbc:mysql://localhost:8889?useSSL=false
     schemas: student_portal
     user: root
-    password: root
+    password: root # Remove it, if you are using XAMPP (Windows)
