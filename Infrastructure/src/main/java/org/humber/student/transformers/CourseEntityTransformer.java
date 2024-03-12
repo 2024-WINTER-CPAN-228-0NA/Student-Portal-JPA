@@ -13,4 +13,12 @@ public final class CourseEntityTransformer {
                 .courseDescription(courseEntity.getCourseDescription())
                 .build();
     }
+
+    public static CourseEntity transformToCourseEntity(Course course) {
+        CourseEntity courseEntity = new CourseEntity();
+        courseEntity.setCourseId(course.getCourseId());
+        courseEntity.setCourseName(course.getCourseName());
+        courseEntity.setCourseDescription(course.getCourseDescription());
+        return courseEntity;
+    }
 }

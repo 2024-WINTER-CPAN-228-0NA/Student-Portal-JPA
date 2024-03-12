@@ -1,5 +1,6 @@
 package org.humber.student.services.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.humber.student.domain.Student;
 import org.humber.student.exceptions.ErrorCode;
 import org.humber.student.exceptions.StudentValidationException;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Slf4j
 public class StudentServiceImpl implements StudentService {
 
     private final StudentJPAService studentJpaService;
@@ -25,15 +27,15 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student createStudent(Student student) {
-        System.out.println("In method createStudent, validating student= " + student.toString());
+        log.info("In method createStudent, validating student= {}", student);
         for (StudentValidationService validationService : validationServices) {
             if (validationService instanceof StudentIdValidation) {
-                System.out.println("Skipping StudentIdValidation for new Student");
+                log.info("Skipping StudentIdValidation for new Student");
                 continue;
             }
             validationService.validateStudent(student);
         }
-        System.out.println("Saving student");
+        log.info("Saving student");
         return studentJpaService.saveStudent(student);
     }
 
@@ -54,7 +56,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getStudent(Long studentId) {
         System.out.println("Getting student");
-        if(studentId == null) {
+        if (studentId == null) {
             System.err.println("Student id is null");
             throw new StudentValidationException(ErrorCode.INVALID_STUDENT_ID);
         }

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @PreAuthorize("hasRole('ADMIN')")
-@RequestMapping("/security")
+@RequestMapping("/api/security")
 public class SecurityController {
 
     @GetMapping("/roles")

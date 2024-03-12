@@ -27,3 +27,9 @@ spring:
     schemas: student_portal
     user: root
     password: root # Remove it, if you are using XAMPP (Windows)
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

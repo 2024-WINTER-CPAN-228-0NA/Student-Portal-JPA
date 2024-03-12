@@ -49,6 +49,6 @@ public class StudentEntity {
     @Column(name = "semester")
     private String semester;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<GradeEntity> grades;
 }

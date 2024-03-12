@@ -2,17 +2,15 @@ package org.humber.student.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -25,14 +23,28 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        List<UserDetails> users = new ArrayList<>();
-        users.add(user("user", passwordEncoder.encode("123456"), "USER"));
-        users.add(user("admin", passwordEncoder.encode("123"), "USER", "ADMIN"));
-        return new InMemoryUserDetailsManager(users);
-    }
-
-    private UserDetails user(String username, String password, String... roles) {
-        return User.withUsername(username).password(password).roles(roles).build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers(HttpMethod.GET, "/api/students/**").hasRole("STUDENT")
+                        .requestMatchers("/api/**").hasRole("ADMIN")
+                        .requestMatchers("/user", "/user/**").permitAll() // For user registration API
+                        .requestMatchers("/","/index*","/login", "/register*").permitAll() // For user registration UI
+                        .requestMatchers("/style/*", "/script/*").permitAll() // For static resources
+                        .anyRequest().authenticated()
+                )
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/swagger-ui.html")
+                )
+                .logout(logout -> logout
+                        .permitAll()
+                        .logoutSuccessUrl("/")
+                )
+                .csrf(AbstractHttpConfigurer::disable)
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .accessDeniedPage("/access-denied.html")
+                )
+                .build();
     }
 }
