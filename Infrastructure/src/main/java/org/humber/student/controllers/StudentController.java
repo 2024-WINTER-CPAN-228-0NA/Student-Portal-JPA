@@ -1,5 +1,6 @@
 package org.humber.student.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.humber.student.domain.Student;
 import org.humber.student.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/students")
+@Slf4j
 public class StudentController {
 
     private final StudentService studentService;
@@ -39,12 +41,12 @@ public class StudentController {
     }
 
     @DeleteMapping("/{studentId}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable Long studentId) {
+    public String deleteStudent(@PathVariable Long studentId) {
         boolean deleted = studentService.deleteStudent(studentId);
+        log.info("Deleted student with id= {} {}", studentId, deleted);
         if (deleted) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
+            return "Student deleted successfully";
         }
+        return "Student not found";
     }
 }

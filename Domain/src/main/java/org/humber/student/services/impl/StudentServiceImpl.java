@@ -41,9 +41,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean deleteStudent(Long studentId) {
-        System.out.println("Deleting student");
-        Student student = studentJpaService.getStudentById(studentId);
-        return student != null;
+        log.info("Deleting student");
+        return studentJpaService.deleteStudent(studentId);
     }
 
     @Override

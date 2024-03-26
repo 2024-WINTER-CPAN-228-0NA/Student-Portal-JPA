@@ -44,4 +44,14 @@ public class StudentJPAServiceImpl implements StudentJPAService {
         StudentEntity savedEntity = studentJPARepository.save(studentEntity);
         return transformToStudent(savedEntity);
     }
+
+    @Override
+    public boolean deleteStudent(Long studentId) {
+        Optional<StudentEntity> studentEntity = studentJPARepository.findById(studentId);
+        if (studentEntity.isEmpty()) {
+            return false;
+        }
+        studentJPARepository.delete(studentEntity.get());
+        return true;
+    }
 }
