@@ -13,4 +13,6 @@ public interface StudentJPAService {
     Student saveStudent(Student student);
 
     boolean deleteStudent(Long studentId);
+
+    Student updateStudent(Student student);
 }

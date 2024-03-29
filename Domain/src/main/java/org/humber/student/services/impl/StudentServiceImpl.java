@@ -47,9 +47,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student updateStudent(Student student) {
-        //TODO: Implement update student
-        System.out.println("Updating student");
-        return null;
+        log.info("In method updateStudent, validating student= {}", student);
+        for (StudentValidationService validationService : validationServices) {
+            validationService.validateStudent(student);
+        }
+        log.info("Updating student");
+        return studentJpaService.updateStudent(student);
     }
 
     @Override

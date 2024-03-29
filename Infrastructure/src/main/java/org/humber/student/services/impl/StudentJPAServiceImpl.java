@@ -54,4 +54,9 @@ public class StudentJPAServiceImpl implements StudentJPAService {
         studentJPARepository.delete(studentEntity.get());
         return true;
     }
+
+    @Override
+    public Student updateStudent(Student student) {
+        return saveStudent(student);
+    }
 }

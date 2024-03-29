@@ -26,15 +26,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                                .anyRequest().permitAll()
-/**
                         .requestMatchers(HttpMethod.GET, "/api/students/**").hasRole("STUDENT")
+                        .requestMatchers( "/api/students/**").hasRole("STUDENT")
                         .requestMatchers("/api/**").hasRole("ADMIN")
                         .requestMatchers("/user", "/user/**").permitAll() // For user registration API
                         .requestMatchers("/","/index*","/login", "/register*").permitAll() // For user registration UI
                         .requestMatchers("/style/*", "/script/*").permitAll() // For static resources
                         .anyRequest().authenticated()
-*/
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
