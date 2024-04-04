@@ -14,6 +14,16 @@ mvn clean install
 java -jar Infrastructure/target/Infrastructure-0.0.1-SNAPSHOT.jar
 ```
 
+#### Run with DEV profile
+```
+java -jar -Dspring.profiles.active=dev Infrastructure/target/Infrastructure-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+```
+#### Run with PROD profile
+```
+java -jar -Dspring.profiles.active=dev Infrastructure/target/Infrastructure-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+```
+
+
 ### Run Swagger
 ```
 http://localhost:8080/swagger-ui.html

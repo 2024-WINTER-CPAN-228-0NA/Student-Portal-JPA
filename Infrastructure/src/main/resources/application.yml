@@ -1,13 +1,15 @@
 spring:
+  profiles:
+      active: prod
   application:
     name: Student Portal
 
 
-#JPA
+  #JPA
   jpa:
     show-sql: true
 
-#Spring Datasource Connection Pooling configuration
+  #Spring Datasource Connection Pooling configuration
   datasource:
     username: root
     password: root # Remove it, if you are using XAMPP (Windows)
@@ -19,7 +21,7 @@ spring:
       max-idle: 3
       max-wait: 8000
 
-#Flyway
+  #Flyway
   flyway:
     enabled: true
     locations: classpath:db/migration

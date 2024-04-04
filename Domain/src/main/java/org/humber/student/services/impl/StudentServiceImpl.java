@@ -57,7 +57,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student getStudent(Long studentId) {
-        System.out.println("Getting student");
+        log.info("Getting student for id= {}", studentId);
         if (studentId == null) {
             System.err.println("Student id is null");
             throw new StudentValidationException(ErrorCode.INVALID_STUDENT_ID);
